@@ -1,6 +1,6 @@
 {
-  "name": "@bbabystyle/react-video-player",
-  "version": "2023.0.1",
+  "name": "@bbabystyle/next-video-player",
+  "version": "2023.0.9",
   "description": "",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -23,7 +23,8 @@
     "test": "jest --config jestconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run prettier && npm run lint",
-    "build": "yarn build:esm && yarn build:cjs",
+    "clean": "rimraf dist/",
+    "build": "yarn clean && yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs"
   },
@@ -32,11 +33,12 @@
   "license": "MIT",
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.2.4",
+    "@types/jest": "^29.2.5",
     "@types/react": "^18.0.26",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
-    "eslint": "^8.30.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
@@ -48,6 +50,7 @@
     "prettier": "^2.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rimraf": "^3.0.2",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.4"
   }

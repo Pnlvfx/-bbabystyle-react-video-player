@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -106,7 +106,7 @@ const Controls = () => {
           style={{ background: 'linear-gradient(180deg, transparent, rgba(0, 0, 0, .5)' }}
           className='absolute h-full left-0 right-0 bottom-0'
         />
-        <div className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} ml-1 button`}>
+        <div style={buttonStyle} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} ml-1`}>
           <div>
             <Link href={'/'} className='m-0 p-0 flex justify-center items-center w-[36px] h-[36px] align-baseline'>
               <div className='w-6 h-6 flex justify-center items-center'>
@@ -115,7 +115,7 @@ const Controls = () => {
             </Link>
           </div>
         </div>
-        <div className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} button`}>
+        <div style={buttonStyle} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
           <button
             onClick={(e) => {
               e.preventDefault()
@@ -132,10 +132,14 @@ const Controls = () => {
             )}
           </button>
         </div>
-        <div className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} timeButton`}>{played}</div>
+        <div style={timeButton} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
+          {played}
+        </div>
         <Slider />
-        <div className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} timeButton`}>{duration}</div>
-        <div className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} button`}>
+        <div style={timeButton} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
+          {duration}
+        </div>
+        <div style={buttonStyle} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
           <div className='absolute'>
             <div></div>
           </div>
@@ -147,7 +151,7 @@ const Controls = () => {
             <VideoSettingsIcon className='w-[18px] h-[18px]' />
           </button>
         </div>
-        <div className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'} button`}>
+        <div style={buttonStyle} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
           <button
             onClick={(e) => {
               e.preventDefault()
@@ -160,7 +164,10 @@ const Controls = () => {
             <VideoFullscreenIcon className='w-[18px] h-[18px]' />
           </button>
         </div>
-        <div className={`button [&>div:nth-child(1)]:hover:md:block [&>div:nth-child(1)]:hover:md:opacity-100`}>
+        <div
+          style={buttonStyle}
+          className={`[&>div:nth-child(1)]:hover:md:block [&>div:nth-child(1)]:hover:md:opacity-100`}
+        >
           <div
             onClick={(e) => {
               e.preventDefault()
@@ -209,3 +216,35 @@ const Controls = () => {
 }
 
 export default Controls
+
+const buttonStyle: CSSProperties = {
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  height: '100%',
+  margin: 0,
+  outline: 'none',
+  zIndex: 4,
+  transitionProperty: 'opacity',
+  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  transitionDuration: '150ms',
+}
+
+const timeButton: CSSProperties = {
+  fontSize: 12,
+  whiteSpace: 'nowrap',
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  padding: 0,
+  verticalAlign: 'baseline',
+  alignSelf: 'center',
+  marginLeft: 16,
+  marginRight: 16,
+  zIndex: 4,
+  height: '100%',
+  outline: 'none',
+  transitionProperty: 'opacity',
+  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  transitionDuration: '150ms',
+}
