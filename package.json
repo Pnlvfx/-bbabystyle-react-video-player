@@ -1,8 +1,8 @@
 {
   "name": "@bbabystyle/next-video-player",
-  "version": "2023.0.9",
+  "version": "2023.1.0",
   "description": "",
-  "main": "./dist/cjs/index.js",
+  "main": "./dist/esm/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "repository": {
@@ -24,9 +24,8 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run prettier && npm run lint",
     "clean": "rimraf dist/",
-    "build": "yarn clean && yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs"
+    "build": "yarn clean && yarn build:esm",
+    "build:esm": "tsc"
   },
   "keywords": [],
   "author": "Simone Gauli",
