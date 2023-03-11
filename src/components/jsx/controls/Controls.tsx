@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, MouseEvent } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -34,7 +34,9 @@ const Controls = () => {
     Logo,
   } = useProvider()
 
-  const toggleFullScreenMode = () => {
+  const toggleFullScreenMode = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
     if (!videoContainerRef.current) return
     if (document.fullscreenElement == null) {
       videoContainerRef.current.requestFullscreen()
@@ -48,22 +50,26 @@ const Controls = () => {
     player.current.muted = !player.current.muted
   }
 
+  const replayVideo = () => {
+    if (!player.current) return
+    player.current.currentTime = 0
+    setIsPlaying(false)
+    setIsEnded(false)
+    player.current.play()
+  }
+
+  const playVideo = (e: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    handlePlayPause(player)
+  }
+
   return (
     <>
       <div className='absolute flex h-full w-full items-center justify-center bg-[rgba(0,0,0,.4)]'>
         {isEnded && (
           <div className='h-auto w-auto opacity-95'>
-            <button
-              className='flex items-center justify-center outline-none bg-transparent'
-              onClick={() => {
-                //replay
-                if (!player.current) return
-                player.current.currentTime = 0
-                setIsPlaying(false)
-                setIsEnded(false)
-                player.current.play()
-              }}
-            >
+            <button className='flex items-center justify-center outline-none bg-transparent' onClick={replayVideo}>
               <VideoCenterReplayIcon className='w-[50px] h-[50px] overflow-hidden' />
               <span
                 className='flex items-center text-[12px] font-bold text-white ml-[10px] text-center leading-6'
@@ -78,26 +84,12 @@ const Controls = () => {
         )}
       </div>
       {!isPlaying && !isEnded && (
-        <div
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            handlePlayPause(player)
-          }}
-          className='absolute top-[50%] left-[50%] ml-[-30px] mt-[-30px] z-10 cursor-pointer'
-        >
+        <div onClick={playVideo} className='absolute top-[50%] left-[50%] ml-[-30px] mt-[-30px] z-10 cursor-pointer'>
           <VideoCenterPlayIcon />
         </div>
       )}
       {loading && (
-        <div
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            handlePlayPause(player)
-          }}
-          className='absolute top-[50%] left-[50%] ml-[-30px] mt-[-30px] z-10 cursor-pointer'
-        >
+        <div onClick={playVideo} className='absolute top-[50%] left-[50%] ml-[-30px] mt-[-30px] z-10 cursor-pointer'>
           <Spinner />
         </div>
       )}
@@ -117,11 +109,7 @@ const Controls = () => {
         </div>
         <div style={buttonStyle} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
           <button
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              handlePlayPause(player)
-            }}
+            onClick={playVideo}
             aria-label='Play'
             className='outline-none w-9 h-9 flex justify-center items-center'
           >
@@ -153,11 +141,7 @@ const Controls = () => {
         </div>
         <div style={buttonStyle} className={`${controls ? 'opacity-0 md:opacity-100' : 'opacity-0'}`}>
           <button
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              toggleFullScreenMode()
-            }}
+            onClick={toggleFullScreenMode}
             className='outline-none w-9 h-9 flex justify-center items-center'
             aria-label='Fullscreen'
           >

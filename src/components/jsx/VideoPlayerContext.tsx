@@ -108,7 +108,7 @@ export const VideoPlayerContextProvider = ({ children, url, poster, Logo }: Vide
 }
 
 export const useProvider = () => {
-  const context = useContext(VideoPlayerContext) as VideoPlayerContextProps
+  const context = useContext(VideoPlayerContext)
   if (!context) {
     throw new Error('VideoPlayer component must be used with VideoPlayerContextProvider component')
   }

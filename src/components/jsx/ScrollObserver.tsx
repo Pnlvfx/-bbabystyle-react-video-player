@@ -9,16 +9,15 @@ interface ScrollProps {
 const ScrollObserver = ({ children, enable }: ScrollProps) => {
   const { player } = useProvider()
 
-  const callback = (entries: IntersectionObserverEntry[]) => {
-    const [entry] = entries
-    if (entry.isIntersecting) {
-      player.current?.play()
-    } else {
-      player.current?.pause()
-    }
-  }
-
   useEffect(() => {
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries
+      if (entry.isIntersecting) {
+        player.current?.play()
+      } else {
+        player.current?.pause()
+      }
+    }
     //Start video on scroll;
     if (!enable) return
     const options = {
@@ -33,7 +32,7 @@ const ScrollObserver = ({ children, enable }: ScrollProps) => {
         if (player.current) observer.unobserve(player.current)
       }
     }, 500)
-  }, [player])
+  }, [player, enable])
 
   return <>{children}</>
 }

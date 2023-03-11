@@ -1,6 +1,6 @@
 {
   "name": "@bbabystyle/next-video-player",
-  "version": "2023.2.8",
+  "version": "2023.03.11",
   "description": "",
   "main": "./dist/esm/index.js",
   "module": "./dist/esm/index.js",
