@@ -4,7 +4,7 @@ import ScrollObserver from './jsx/ScrollObserver'
 import { VideoPlayerContextProvider } from './jsx/VideoPlayerContext'
 import VideoPlayer from './jsx/VideoPlayer'
 
-interface VideoPlayerProps {
+export interface VideoPlayerProps {
   url: string
   poster: string
   Logo: string

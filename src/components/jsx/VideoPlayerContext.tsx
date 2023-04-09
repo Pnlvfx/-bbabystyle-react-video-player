@@ -8,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
+import { VideoPlayerProps } from '../Video'
 
 interface VideoPlayerContextProps {
   player: MutableRefObject<HTMLVideoElement | null>
@@ -46,12 +47,8 @@ interface VideoPlayerContextProps {
 
 export const VideoPlayerContext = createContext<VideoPlayerContextProps | Record<string, never>>({})
 
-interface VideoPlayerContextProviderProps {
+interface VideoPlayerContextProviderProps extends VideoPlayerProps {
   children: ReactNode
-  url: string
-  duration?: number
-  poster: string
-  Logo: string
 }
 
 export const VideoPlayerContextProvider = ({ children, url, poster, Logo }: VideoPlayerContextProviderProps) => {

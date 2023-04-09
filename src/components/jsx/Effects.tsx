@@ -24,6 +24,7 @@ const Effects = ({ children }: EffectsProps) => {
     timelineRef,
     setIsPlaying,
     previewPositionRef,
+    setLoading,
   } = useProvider()
 
   let isScrabbing = false
@@ -131,8 +132,12 @@ const Effects = ({ children }: EffectsProps) => {
     }
   }
 
+  const onLoading = () => {
+    setLoading(true)
+  }
+
   const addListeners = () => {
-    //player.current?.addEventListener('waiting', (ev) => {setLoading(true)});
+    player.current?.addEventListener('waiting', onLoading)
     player.current?.addEventListener('play', () => onPlay())
     player.current?.addEventListener('pause', () => {
       setIsPlaying(false)
@@ -144,6 +149,7 @@ const Effects = ({ children }: EffectsProps) => {
       if (!player.current) return
       const d = formatDuration(player.current?.duration)
       setDuration(d)
+      setLoading(false)
     })
     //PROGRESS BAR
     timelineRef.current?.addEventListener('mousemove', handleTimelineUpdate) //preview
